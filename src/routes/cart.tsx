@@ -34,7 +34,7 @@ function CartPage() {
             <ul className="divide-y divide-border/60">
               {items.map((i) => (
                 <li key={i.product.id} className="flex gap-5 py-6">
-                  <img src={i.product.image} alt={i.product.name} className="h-32 w-28 rounded-xl object-cover" />
+                  <img src={i.product.image} alt={i.product.name} className="h-24 w-20 sm:h-32 sm:w-28 rounded-xl object-cover" />
                   <div className="flex flex-1 flex-col">
                     <div className="flex items-start justify-between">
                       <div>
