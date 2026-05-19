@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { useState } from "react";
 import { useAuth } from "@/store/auth";
+import { Eye, EyeOff } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Sign in — Glowus Beauty" }] }),
@@ -9,8 +10,19 @@ export const Route = createFileRoute("/login")({
 });
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("remembered_email") || "";
+    }
+    return "";
+  });
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("remembered_email") ? true : false;
+    }
+    return false;
+  });
   const { signIn, loading, signInWithGoogle, signInWithApple } = useAuth();
   const navigate = useNavigate();
 
@@ -20,6 +32,11 @@ function Login() {
     
     const { success } = await signIn(email, password);
     if (success) {
+      if (rememberMe) {
+        localStorage.setItem("remembered_email", email.trim());
+      } else {
+        localStorage.removeItem("remembered_email");
+      }
       navigate({ to: "/" });
     }
   };
@@ -45,8 +62,13 @@ function Login() {
             required
           />
           <div className="flex items-center justify-between text-xs">
-            <label className="flex items-center gap-2 text-muted-foreground cursor-pointer">
-              <input type="checkbox" className="rounded border-border text-[#2A5EE1] focus:ring-[#2A5EE1]" /> Remember me
+            <label className="flex items-center gap-2 text-muted-foreground cursor-pointer select-none">
+              <input 
+                type="checkbox" 
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="rounded border-border text-[#2A5EE1] focus:ring-[#2A5EE1] cursor-pointer" 
+              /> Remember me
             </label>
             <Link to="/login" className="underline-offset-4 hover:underline text-[#2A5EE1] font-semibold">Forgot password?</Link>
           </div>
@@ -76,7 +98,7 @@ export function AuthShell({ title, subtitle, children }: { title: React.ReactNod
     <div className="grid min-h-[calc(100vh-80px)] md:grid-cols-2">
       <div className="hidden md:block relative overflow-hidden">
         <img
-          src="https://img.thecdn.in/365412/PilgrimKoreanJejuGold24k-1723721945588.jpeg?width=800&format=jpeg"
+          src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop"
           alt="Glowus cosmetics"
           className="h-full w-full object-cover"
         />
@@ -95,10 +117,29 @@ export function AuthShell({ title, subtitle, children }: { title: React.ReactNod
 }
 
 export function Field({ label, ...p }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+  const [showPassword, setShowPassword] = useState(false);
+  const isPassword = p.type === "password";
+  const inputType = isPassword ? (showPassword ? "text" : "password") : p.type;
+
   return (
-    <label className="block">
+    <label className="block relative select-none">
       <span className="text-[10px] uppercase font-bold tracking-[0.22em] text-muted-foreground">{label}</span>
-      <input {...p} className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3.5 text-sm outline-none focus:border-[#2A5EE1] focus:ring-1 focus:ring-[#2A5EE1] transition" />
+      <div className="relative mt-2">
+        <input 
+          {...p} 
+          type={inputType}
+          className="w-full rounded-xl border border-border bg-background pl-4 pr-10 py-3.5 text-sm outline-none focus:border-[#2A5EE1] focus:ring-1 focus:ring-[#2A5EE1] transition" 
+        />
+        {isPassword && (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
+          >
+            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+          </button>
+        )}
+      </div>
     </label>
   );
 }
