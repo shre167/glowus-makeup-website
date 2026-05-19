@@ -112,7 +112,7 @@ export const useAuth = create<AuthState>((set, get) => ({
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
           queryParams: email ? { preferredEmail: email } : undefined,
         } as any,
       });
@@ -132,7 +132,7 @@ export const useAuth = create<AuthState>((set, get) => ({
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "apple",
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
           queryParams: email ? { preferredEmail: email } : undefined,
         } as any,
       });
