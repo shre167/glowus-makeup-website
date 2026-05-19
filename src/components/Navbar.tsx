@@ -237,6 +237,20 @@ export function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Search Bar Row (Fast-access search on small screens) */}
+      <div className="block md:hidden w-full bg-white dark:bg-[#0B0F19] px-5 pb-3 pt-0 border-b border-border/50 transition-all duration-300">
+        <form onSubmit={handleSearchSubmit} className="relative w-full">
+          <input
+            type="text"
+            placeholder="Search Swiss Beauty, Pilgrim, O3+..."
+            value={searchVal}
+            onChange={(e) => setSearchVal(e.target.value)}
+            className="w-full pl-9 pr-4 py-2 rounded-full border border-border bg-muted/40 text-xs focus:outline-none focus:ring-1 focus:ring-[#2A5EE1] dark:text-white"
+          />
+          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+        </form>
+      </div>
+
       {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {mobile && (

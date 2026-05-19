@@ -67,7 +67,7 @@ export function HeroSlider() {
   return (
     <section className="relative w-full overflow-hidden bg-muted/20">
       {/* Slider Wrapper */}
-      <div className="relative aspect-[3/1] xs:aspect-[2.8/1] md:aspect-[3/1] lg:aspect-[3/1] w-full">
+      <div className="relative aspect-[2/1] sm:aspect-[2.8/1] md:aspect-[3/1] lg:aspect-[3/1] w-full">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -81,7 +81,7 @@ export function HeroSlider() {
               <img
                 src={banners[index].image}
                 alt={banners[index].title}
-                className="w-full h-full object-cover select-none cursor-pointer"
+                className="w-full h-full object-cover object-center select-none cursor-pointer"
                 loading="eager"
               />
             </Link>

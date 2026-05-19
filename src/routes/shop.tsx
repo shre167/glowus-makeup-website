@@ -23,6 +23,7 @@ function Shop() {
   const [cat, setCat] = useState<string | null>(null);
   const [sort, setSort] = useState<Sort>("Featured");
   const [maxPrice, setMaxPrice] = useState(2000);
+  const [showFilters, setShowFilters] = useState(false);
 
   const filtered = useMemo(() => {
     let list = products.filter((p) =>
@@ -51,7 +52,7 @@ function Shop() {
       <div className="mx-auto max-w-7xl px-6 py-10 md:px-8">
         <div className="grid gap-10 md:grid-cols-[240px_1fr]">
           {/* Sidebar */}
-          <aside className="space-y-8">
+          <aside className={`${showFilters ? "block" : "hidden"} md:block space-y-8 bg-white dark:bg-card p-5 md:p-0 rounded-2xl border border-border/50 md:border-0`}>
             <div>
               <label className="flex items-center gap-2 rounded-full border border-border bg-background px-4 py-3">
                 <Search className="h-4 w-4 text-muted-foreground" />
@@ -96,20 +97,29 @@ function Shop() {
 
           {/* Grid */}
           <div>
-            <div className="mb-6 flex items-center justify-between">
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                <SlidersHorizontal className="mr-2 inline h-3 w-3" />
-                {filtered.length} results
-              </p>
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center justify-between w-full sm:w-auto">
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground flex items-center">
+                  <SlidersHorizontal className="mr-2 h-3.5 w-3.5" />
+                  {filtered.length} results
+                </p>
+                {/* Mobile Filter Toggle Button */}
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="md:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-white text-[10px] font-bold uppercase tracking-wider text-[#2A5EE1] cursor-pointer shadow-sm hover:bg-muted/30"
+                >
+                  {showFilters ? "Hide Filters" : "Show Filters"}
+                </button>
+              </div>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as Sort)}
-                className="rounded-full border border-border bg-background px-4 py-2 text-xs uppercase tracking-[0.18em] outline-none"
+                className="rounded-full border border-border bg-background px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.18em] outline-none w-full sm:w-auto text-center"
               >
                 {sortOptions.map((s) => <option key={s}>{s}</option>)}
               </select>
             </div>
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3.5 md:gap-6 md:grid-cols-3">
               {filtered.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
             </div>
             {filtered.length === 0 && (

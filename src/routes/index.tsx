@@ -125,7 +125,7 @@ function Home() {
         subtitle="Vibrant pigment, weightless textures, smudgeproof lock-in."
         viewLink="/shop"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-6">
           {swissBeautyProds.map((p, idx) => (
             <ProductCard key={p.id} product={p} index={idx} />
           ))}
@@ -134,7 +134,7 @@ function Home() {
 
       {/* Promo banner grid */}
       <section className="mx-auto max-w-7xl px-5 py-4 md:px-8 grid gap-6 md:grid-cols-2">
-        <div className="relative overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition group aspect-[2.5/1]">
+        <div className="relative overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition group aspect-[1.8/1] sm:aspect-[2.5/1]">
           <img
             src="https://img.thecdn.in/365412/biolage1-1733060252840.jpeg?width=600&format=jpeg"
             alt="Biolage haircare banner"
@@ -150,7 +150,7 @@ function Home() {
           </div>
         </div>
         
-        <div className="relative overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition group aspect-[2.5/1]">
+        <div className="relative overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition group aspect-[1.8/1] sm:aspect-[2.5/1]">
           <img
             src="https://img.thecdn.in/365412/PILGRIM1920x640px-1723721945588.jpeg?width=600&format=jpeg"
             alt="Pilgrim skincare banner"
@@ -173,7 +173,7 @@ function Home() {
         subtitle="Unlocking Korean Jeju secrets combined with active clinical formulations."
         viewLink="/shop"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-6">
           {pilgrimProds.map((p, idx) => (
             <ProductCard key={p.id} product={p} index={idx} />
           ))}
@@ -186,7 +186,7 @@ function Home() {
         subtitle="Compact palettes for complete looks - eyeshadow, blushes, highlighters."
         viewLink="/shop"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-6">
           {marsProds.map((p, idx) => (
             <ProductCard key={p.id} product={p} index={idx} />
           ))}
@@ -199,7 +199,7 @@ function Home() {
         subtitle="Salon smoothing treatments, shine serums, and damage repairs used by stylists."
         viewLink="/shop"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-6">
           {hairProds.map((p, idx) => (
             <ProductCard key={p.id} product={p} index={idx} />
           ))}
@@ -212,7 +212,7 @@ function Home() {
         subtitle="Professional salon-facial glow kits, anti-spot serums, and peeling solutions."
         viewLink="/shop"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-6">
           {o3Prods.map((p, idx) => (
             <ProductCard key={p.id} product={p} index={idx} />
           ))}
@@ -225,7 +225,7 @@ function Home() {
         subtitle="Mild daily face washes, hydrating aloe blocks, and clean mineral sunscreens."
         viewLink="/shop"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-6">
           {otherProds.map((p, idx) => (
             <ProductCard key={p.id} product={p} index={idx} />
           ))}
@@ -253,15 +253,16 @@ function Home() {
       </section>
 
       {/* WhatsApp Floating Chat Bubble */}
-      <div className="fixed bottom-6 right-6 z-40 hidden sm:block">
+      <div className="fixed bottom-6 right-6 z-40">
         <a
           href="https://wa.me/919220600692?text=Hi,%20I%20am%20shopping%20at%20Glowus!"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#25D366] text-white font-bold shadow-lg hover:scale-105 transition-transform"
+          className="flex items-center justify-center gap-2 h-12 w-12 sm:h-auto sm:w-auto sm:px-5 sm:py-3 rounded-full bg-[#25D366] text-white font-bold shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+          aria-label="Shop on WhatsApp"
         >
           <ShoppingBag className="h-5 w-5" />
-          <span>Shop on WhatsApp</span>
+          <span className="hidden sm:inline">Shop on WhatsApp</span>
         </a>
       </div>
     </Layout>

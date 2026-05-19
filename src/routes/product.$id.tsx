@@ -113,15 +113,15 @@ function ProductPage() {
               </button>
             </div>
 
-            <div className="mt-8 grid grid-cols-3 gap-3 rounded-2xl bg-[var(--cream)] p-5">
+            <div className="mt-8 grid grid-cols-3 gap-1 sm:gap-3 rounded-2xl bg-[var(--cream)] p-4 sm:p-5">
               {[
                 { icon: Truck, label: "Free shipping over ₹999" },
                 { icon: RefreshCw, label: "30-day returns" },
                 { icon: Leaf, label: "Clean formulas" },
               ].map((b, i) => (
-                <div key={i} className="text-center">
+                <div key={i} className="text-center px-1">
                   <b.icon className="mx-auto h-4 w-4 text-foreground/70" />
-                  <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{b.label}</p>
+                  <p className="mt-2 text-[8px] sm:text-[10px] uppercase tracking-wider font-semibold text-muted-foreground leading-tight">{b.label}</p>
                 </div>
               ))}
             </div>
@@ -154,7 +154,7 @@ function ProductPage() {
         <section className="mt-24">
           <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Complete the routine</p>
           <h2 className="mt-3 font-serif text-3xl md:text-4xl">Pairs <span className="italic">beautifully</span> with</h2>
-          <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-3.5 md:grid-cols-4 md:gap-6">
             {related.map((p: typeof products[number], i: number) => <ProductCard key={p.id} product={p} index={i} />)}
           </div>
         </section>
