@@ -1,12 +1,25 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Read environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
+// Read environment variables supporting both Client-side Vite and Server-side Node SSR
+const getEnv = (key: string): string | undefined => {
+  if (typeof import.meta !== "undefined" && import.meta.env && import.meta.env[key]) {
+    return import.meta.env[key];
+  }
+  if (typeof process !== "undefined" && process.env && process.env[key]) {
+    return process.env[key];
+  }
+  return undefined;
+};
+
+const supabaseUrl = 
+  getEnv("VITE_SUPABASE_URL") || 
+  getEnv("NEXT_PUBLIC_SUPABASE_URL");
+
 const supabaseAnonKey = 
-  import.meta.env.VITE_SUPABASE_ANON_KEY || 
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
-  import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 
-  import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  getEnv("VITE_SUPABASE_ANON_KEY") || 
+  getEnv("VITE_SUPABASE_PUBLISHABLE_KEY") ||
+  getEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY") || 
+  getEnv("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
 
 // Check if credentials exist and are not placeholders
 const isConfigured = !!supabaseUrl && !!supabaseAnonKey && supabaseUrl !== "PLACEHOLDER";
